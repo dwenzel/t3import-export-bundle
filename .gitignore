@@ -1,0 +1,19 @@
+# Local build files
+/.build/*
+!/.build/build-artifact.json
+
+# TYPO3-related files
+!/public/
+/public/*
+!/public/.htaccess
+!/public/robots.txt
+
+# Temporary files
+/var/
+
+# Test files
+/.php-cs-fixer.cache
+/.phpunit.result.cache
+
+# Composer-related files
+/vendor/

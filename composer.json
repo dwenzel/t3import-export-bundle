@@ -1,0 +1,153 @@
+{
+	"name": "cpsit/import-export-bundle",
+	"description": "Project bundle for the import-export TYPO3 13.4 project",
+	"license": "GPL-2.0-or-later",
+	"type": "project",
+	"authors": [
+		{
+			"name": "Dirk Wenzel",
+			"email": "wenzel@cps-it.de"
+		}
+	],
+	"homepage": "https://www.cps-it.de/",
+	"require": {
+		"helhum/typo3-console": "^8.2.1",
+		"typo3/cms-adminpanel": "^13.4",
+		"typo3/cms-backend": "^13.4",
+		"typo3/cms-belog": "^13.4",
+		"typo3/cms-beuser": "^13.4",
+		"typo3/cms-core": "^13.4",
+		"typo3/cms-dashboard": "^13.4",
+		"typo3/cms-extbase": "^13.4",
+		"typo3/cms-extensionmanager": "^13.4",
+		"typo3/cms-filelist": "^13.4",
+		"typo3/cms-fluid": "^13.4",
+		"typo3/cms-fluid-styled-content": "^13.4",
+		"typo3/cms-form": "^13.4",
+		"typo3/cms-frontend": "^13.4",
+		"typo3/cms-impexp": "^13.4",
+		"typo3/cms-info": "^13.4",
+		"typo3/cms-install": "^13.4",
+		"typo3/cms-lowlevel": "^13.4",
+		"typo3/cms-opendocs": "^13.4",
+		"typo3/cms-recycler": "^13.4",
+		"typo3/cms-redirects": "^13.4",
+		"typo3/cms-reports": "^13.4",
+		"typo3/cms-rte-ckeditor": "^13.4",
+		"typo3/cms-scheduler": "^13.4",
+		"typo3/cms-seo": "^13.4",
+		"typo3/cms-setup": "^13.4",
+		"typo3/cms-tstemplate": "^13.4",
+		"typo3/cms-viewpage": "^13.4"
+	},
+	"require-dev": {
+		"armin/editorconfig-cli": "^2.0",
+		"cpsit/t3import_export": "dev-feature/v13compatible",
+		"dwenzel/t3extension-tools": "dev-feature/v13 as 5.0.0",
+		"ergebnis/composer-normalize": "^2.28",
+		"friendsofphp/php-cs-fixer": "^3.57",
+		"helmich/typo3-typoscript-lint": "^3.0",
+		"phpstan/extension-installer": "^1.2",
+		"roave/security-advisories": "dev-latest",
+		"saschaegerer/phpstan-typo3": "^2.0",
+		"ssch/typo3-rector": "^3.0",
+		"typo3/coding-standards": "^0.8.0",
+		"typo3/testing-framework": "^9.0"
+	},
+	"repositories": {
+		"local": {
+			"type": "path",
+			"url": "./packages/*",
+			"options": {
+				"symlink": true
+			}
+		},
+		"t3extension-tools": {
+			"type": "vcs",
+			"url": "git@github.com:dwenzel/t3extension_tools.git"
+		},
+		"t3import-export": {
+			"type": "vcs",
+			"url": "git@github.com:dwenzel/t3import_export.git"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"ergebnis/composer-normalize": true,
+			"phpstan/extension-installer": true,
+			"typo3/class-alias-loader": true,
+			"typo3/cms-composer-installers": true
+		},
+		"audit": {
+			"abandoned": "report"
+		},
+		"platform": {
+			"php": "8.4.7"
+		},
+		"sort-packages": true,
+		"preferred-install": {
+			"cpsit/t3import_export": "source",
+			"dwenzel/t3extension-tools": "source"
+		}
+
+	},
+	"scripts": {
+		"post-autoload-dump": [
+			"@typo3-cms-scripts"
+		],
+		"fix": [
+			"@fix:composer",
+			"@fix:editorconfig",
+			"@fix:php"
+		],
+		"fix:composer": "@composer normalize",
+		"fix:editorconfig": "ec --fix",
+		"fix:php": "php-cs-fixer fix",
+		"lint": [
+			"@lint:composer",
+			"@lint:editorconfig",
+			"@lint:php",
+			"@lint:typoscript"
+		],
+		"lint:composer": "@composer normalize --dry-run",
+		"lint:editorconfig": "ec",
+		"lint:php": "php-cs-fixer fix --dry-run",
+		"lint:typoscript": "typoscript-lint",
+		"migration": [
+			"@migration:rector"
+		],
+		"migration:rector": [
+			"Composer\\Config::disableProcessTimeout",
+			"rector process"
+		],
+		"sca": [
+			"@sca:php"
+		],
+		"sca:php": "phpstan analyse -c phpstan.neon --memory-limit=2G $(find packages -mindepth 2 -maxdepth 2 -type d -name 'Classes' -o -name 'Configuration' -o -name 'Tests')",
+		"test": [
+			"@test:unit"
+		],
+		"test:unit": "phpunit -c phpunit.xml",
+		"typo3-cms-scripts": [
+			"typo3 install:fixfolderstructure"
+		]
+	},
+	"scripts-descriptions": {
+		"fix": "Fix all code quality issues reported by the registered linters",
+		"fix:composer": "Fix all issues in `composer.json`",
+		"fix:editorconfig": "Fix all styling issues violating the `.editorconfig` rules",
+		"fix:php": "Fix all styling issues violating the configured PHP-CS-Fixer rules",
+		"lint": "Run all registered linters to detect code quality issues",
+		"lint:composer": "Lint `composer.json` to detect unnormalized styles",
+		"lint:editorconfig": "Lint all project files to detect violations of the `.editorconfig` rules",
+		"lint:php": "Lint all PHP files to detect coding style violations",
+		"lint:typoscript": "Lint all TypoScript and TSconfig files to detect coding style violations",
+		"migration": "Run all registered automatic code migrations",
+		"migration:rector": "Perform automatic code migration with TYPO3 Rector, based on the registered rules",
+		"sca": "Run all registered static code analyzers to detect issues in the codebase",
+		"sca:php": "Analyze all PHP files by using PHPStan, based on the configured level",
+		"test": "Run all configured test suites",
+		"test:unit": "Run unit tests for all local packages",
+		"typo3-cms-scripts": "Perform TYPO3-related initialization scripts (this normally happens automatically)"
+	}
+}
