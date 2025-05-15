@@ -42,7 +42,7 @@
 	},
 	"require-dev": {
 		"armin/editorconfig-cli": "^2.0",
-		"cpsit/import-export-core": "@dev",
+		"cpsit/import-export-core": "dev-develop as 0.1.0",
 		"cpsit/t3import_export": "dev-feature/v13compatible",
 		"dwenzel/t3extension-tools": "dev-feature/v13 as 5.0.0",
 		"ergebnis/composer-normalize": "^2.28",
