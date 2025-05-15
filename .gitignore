@@ -17,3 +17,5 @@
 
 # Composer-related files
 /vendor/
+/packages/t3import_export
+/packages/import-export-core
