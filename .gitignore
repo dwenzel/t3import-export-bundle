@@ -19,3 +19,5 @@
 /vendor/
 /packages/t3import_export
 /packages/import-export-core
+
+**/.claude/settings.local.json
