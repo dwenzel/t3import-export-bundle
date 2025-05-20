@@ -38,7 +38,11 @@
 		"typo3/cms-seo": "^13.4",
 		"typo3/cms-setup": "^13.4",
 		"typo3/cms-tstemplate": "^13.4",
-		"typo3/cms-viewpage": "^13.4"
+		"typo3/cms-viewpage": "^13.4",
+		"ext-libxml": "*",
+		"ext-xmlreader": "*",
+		"ext-xmlwriter": "*",
+		"ext-dom": "*"
 	},
 	"require-dev": {
 		"armin/editorconfig-cli": "^2.0",
@@ -70,6 +74,10 @@
 		"t3import-export": {
 			"type": "vcs",
 			"url": "git@github.com:dwenzel/t3import_export.git"
+		},
+		"import-export-core": {
+			"type": "vcs",
+			"url": "git@github.com:CPS-IT/import-export-core.git"
 		}
 	},
 	"config": {

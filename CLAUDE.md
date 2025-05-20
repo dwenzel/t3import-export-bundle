@@ -7,8 +7,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This is a TYPO3 13.4 project focused on import/export functionality. The main components are:
 
 - TYPO3 CMS 13.4 core system
-- Custom "t3import_export" extension (development version in progress)
+- Custom "t3import_export" extension (main extension for import/export)
+- "import-export-core" extension
 - "t3extension-tools" extension as a dependency
+
+The t3import_export extension provides a flexible framework for importing data from different sources into TYPO3 and exporting from TYPO3 to different targets. Possible data sources and targets include databases and files (XML, CSV).
 
 ## Development Environment
 
@@ -60,6 +63,9 @@ ddev composer migration:rector # Run TYPO3 Rector
 # Testing
 ddev composer test             # Run all tests
 ddev composer test:unit        # Run unit tests
+
+# Run specific unit tests
+ddev exec "cd packages/t3import_export && .Build/bin/phpunit -c Tests/Build/UnitTests.xml Tests/Unit/Component/PreProcessor/MapFieldsTest.php"
 ```
 
 ## Project Structure
@@ -67,18 +73,48 @@ ddev composer test:unit        # Run unit tests
 - `/config`: Contains TYPO3 site configuration
 - `/documentation`: Contains documentation and issue tracking
 - `/packages`: Local packages and extensions
+  - `/packages/t3import_export`: Main import/export extension
+  - `/packages/import-export-core`: Core components for import/export
 - `/public`: Web document root
 - `/var`: TYPO3 variable data (cache, logs, etc.)
 - `/vendor`: Composer dependencies
 
 ## Architecture Notes
 
-This project extends TYPO3's import/export functionality through custom extensions:
+The project extends TYPO3's import/export functionality with a modular component-based system:
 
-1. `t3import_export`: Core functionality for importing and exporting data
-2. `t3extension-tools`: Supporting utility functions and base classes
+1. **Import/Export Flow**:
+   - Each task is configured via TypoScript
+   - Tasks can be grouped into sets
+   - Each task has a data source and a data target
+   - Processing flows through components: Initializers → PreProcessors → Converters → PostProcessors → Finishers
 
-The project is early in development (initial setup) and appears to be enhancing TYPO3's built-in import/export capabilities found in `typo3/cms-impexp`.
+2. **Component Types**:
+   - **Initializers**: Run before task execution (e.g., TruncateTables, DeleteFromTable)
+   - **PreProcessors**: Manipulate raw data before conversion (e.g., MapFields, LookUpDB)
+   - **Converters**: Transform data between formats (e.g., ArrayToDomainObject, ArrayToXMLStream)
+   - **PostProcessors**: Process converted data (e.g., SetL10nParent, RecreateSlug)
+   - **Finishers**: Run after task completion (e.g., ClearCache, ValidateXML)
+
+3. **Data Sources/Targets**:
+   - Database (TYPO3 or external)
+   - XML files
+   - CSV files
+   - Repository objects
+   - Queue system
+
+4. **Execution Methods**:
+   - Backend module
+   - Command line
+   - Scheduler task
+
+## Current Development Focus
+
+The project is currently being updated for compatibility with TYPO3 13.4 and PHPUnit 12. Recent work includes:
+
+- Updating unit tests for PHPUnit 12 compatibility
+- Fixing test structure and removing obsolete code
+- Preparing for TYPO3 13.4 compatibility
 
 ## Quality Standards
 
@@ -93,3 +129,11 @@ The project is early in development (initial setup) and appears to be enhancing 
 - Uses PHPUnit for unit testing
 - Tests are located in `packages/*/Tests/Unit`
 - Coverage reports are generated in `.build/coverage/junit.xml`
+
+## Development Guidelines
+
+- Always execute any PHP scripts including composer in ddev
+- The directories `packages/t3import_export` and `packages/import-export-core` are separate git repositories
+- Always commit changes in these directories, not in the root directory of the project
+- Run unit tests before committing any changes
+- When adding new components, follow the component interface design pattern
