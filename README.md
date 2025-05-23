@@ -1,10 +1,16 @@
-# TYPO3 Import/Export Extension
+# TYPO3 Import/Export Bundle
 
-A flexible and extensible TYPO3 13.4 extension for importing data from various sources into TYPO3 and exporting from TYPO3 to different targets.
+This project serves as development environment for the TYPO3 Import/Export
+extension (`cpsit/t3import_export`). It is not intended for use in production.
+
+This is a flexible and extensible TYPO3 13.4 extension for importing data
+from various sources into TYPO3 and exporting from TYPO3 to different targets.
 
 ## Project Overview
 
-This project provides a modular framework for handling complex data import and export operations in TYPO3. The system supports multiple data sources and targets including databases, XML files, CSV files, and more.
+This project provides a modular framework for handling complex data import and
+export operations in TYPO3. The system supports multiple data sources and
+targets including databases, XML files, CSV files, and more.
 
 ### Main Components
 
@@ -145,21 +151,21 @@ import:
     csv2ttContent:
       label: "CSV to tt_content"
       description: |
-        Configuration example for an import task. This task uses a CSV file as data source 
+        Configuration example for an import task. This task uses a CSV file as data source
         and imports into the table tt_content.
-      
+
       source:
         class: "CPSIT\\T3importExport\\Persistence\\DataSourceCSV"
         config:
           file: "EXT:t3import_export/Resources/Public/Examples/CSV/csv2ttContent.csv"
-      
+
       preProcessors:
         1:
           class: "CPSIT\\T3importExport\\Component\\PreProcessor\\SetFieldValue"
           config:
             targetField: "pid"
             value: 1
-      
+
       target:
         class: "CPSIT\\T3importExport\\Persistence\\DataTargetDB"
         config:
