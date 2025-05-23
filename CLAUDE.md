@@ -105,7 +105,7 @@ The project extends TYPO3's import/export functionality with a modular component
 
 4. **Execution Methods**:
    - Backend module
-   - Command line
+   - Command line (`vendor/bin/typo3 t3import-export:import-set` or `t3import-export:export-set`)
    - Scheduler task
 
 ## Current Development Focus

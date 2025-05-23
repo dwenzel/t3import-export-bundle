@@ -1,0 +1,52 @@
+services:
+  web:
+    environment:
+      - DB_SERVICE_PORT=3306
+      - DB_SERVICE_USER=db
+      - DB_SERVICE_HOST=db
+      - DB_SERVICE_DATABASE=db
+      - DB_SERVICE_PASSWORD=db
+
+      - MAIL_TRANSPORT=smtp
+      - MAIL_TRANSPORT_SERVER=localhost:1025
+
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      # INSTALL_TOOL_PASSWORD AdminPassword!1
+      - INSTALL_TOOL_PASSWORD=$$argon2i$$v=19$$m=65536,t=16,p=1$$VDJkZmdpeTYwU3lpS2ZJWg$$WRWjapW+ECeUlFFvaaoBW5URfj3DwZlcBSv2NEPlKrU
+      - ENCRYPTION_KEY=0cdb3fc8f00df4fc940cb4ca386c3a4af83fc448b0dcd576ad1b28c82b9a13e40a1fce540a1f2ca6c3a96575b43ea28d
+
+      - TYPO3_CONTEXT=Development/Local
+      - TYPO3_SYS_sitename=DDEV dena-12
+      - TYPO3_SYS_trustedHostsPattern=(^import-export\.ddev\.site$$)
+
+      - SITE_TYPO3_BASE=https://import-export.ddev.site/
+      - SITE_TYPO3_SOLR_CORE_READ_DE=core_de
+      - SITE_TYPO3_SOLR_CORE_READ_EN=core_en
+
+      - PHP_IDE_CONFIG=serverName=${DDEV_SITENAME}.ddev.site
+      # Frontend Asset Handler
+      - PACKAGE_VERSION_FRONTEND=dev-latest
+      - PACKAGE_VERSION_MEDIACENTER_APP=dev-latest
+      - PACKAGE_VERSION_CONGRESS_APP=dev-latest
+      - PACKAGE_VERSION_CAREER_APP=1.1.0-dev
+      - APP_ROOT=/var/www/html/app
+
+      # Migration
+      # enable migration by setting MIGRATION_ENABLED=true in local environment
+      - MIGRATION_ENABLED=false
+      - MIGRATION_DB_CHAR_SET=utf8mb4
+      - MIGRATION_DB_CONNECTION_NAME=dena9-ddev-local
+      - MIGRATION_DB_DATABASE=db
+      - MIGRATION_DB_DRIVER=mysqli
+      - MIGRATION_DB_HOST=ddev-dena-9-db
+      - MIGRATION_DB_PORT=3306
+      - MIGRATION_DB_USER=db
+      - MIGRATION_DB_PASSWORD=db
+
+      # Tika
+      - TIKA_PATH=
+      - TIKA_SERVER_HOST=tika
+      - TIKA_SERVER_PATH=/opt/tika/tika-server-standard-2.9.0.jar
+      - TIKA_SERVER_PORT=9998
+      - TIKA_SERVER_SCHEME=http

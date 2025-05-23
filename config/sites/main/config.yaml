@@ -1,4 +1,4 @@
-base: 'https://www.cps-it.de/'
+base: 'https://import-export.ddev.site/'
 baseVariants:
   -
     base: 'https://import-export.ddev.site/'
