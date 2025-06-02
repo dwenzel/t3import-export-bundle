@@ -50,3 +50,8 @@ services:
       - TIKA_SERVER_PATH=/opt/tika/tika-server-standard-2.9.0.jar
       - TIKA_SERVER_PORT=9998
       - TIKA_SERVER_SCHEME=http
+      - TYPO3_CONTEXT=Development/DDEV
+      - typo3DatabaseName=db
+      - typo3DatabaseHost=db
+      - typo3DatabaseUsername=root
+      - typo3DatabasePassword=root

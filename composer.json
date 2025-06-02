@@ -67,7 +67,7 @@
 			"org\\bovigo\\vfs\\": "vendor/mikey179/vfsstream/src/main/php"
 		},
 		"psr-4": {
-			"CPSIT\\ImportExportCore\\Tests\\": "Tests"
+			"CPSIT\\ImportExportCore\\Tests\\": "packages/import-export-core/Tests"
 		}
 	},
 	"repositories": {
@@ -146,9 +146,11 @@
 		],
 		"sca:php": "phpstan analyse -c phpstan.neon --memory-limit=2G $(find packages -mindepth 2 -maxdepth 2 -type d -name 'Classes' -o -name 'Configuration' -o -name 'Tests')",
 		"test": [
-			"@test:unit"
+			"@test:unit",
+			"@test:functional"
 		],
 		"test:unit": "phpunit -c phpunit.xml",
+		"test:functional": "phpunit -c phpunit.functional.xml",
 		"typo3-cms-scripts": [
 			"typo3 install:fixfolderstructure"
 		]
