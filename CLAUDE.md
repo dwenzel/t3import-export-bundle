@@ -65,7 +65,7 @@ ddev composer test             # Run all tests
 ddev composer test:unit        # Run unit tests
 
 # Run specific unit tests
-ddev exec "cd packages/t3import_export && .Build/bin/phpunit -c Tests/Build/UnitTests.xml Tests/Unit/Component/PreProcessor/MapFieldsTest.php"
+ddev exec "cd packages/t3import_export && .build/bin/phpunit -c Tests/Build/UnitTests.xml Tests/Unit/Component/PreProcessor/MapFieldsTest.php"
 ```
 
 ## Project Structure

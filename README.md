@@ -115,7 +115,7 @@ ddev composer test
 ddev composer test:unit
 
 # Run specific unit tests
-ddev exec "cd packages/t3import_export && .Build/bin/phpunit -c Tests/Build/UnitTests.xml Tests/Unit/Component/PreProcessor/MapFieldsTest.php"
+ddev exec "cd packages/t3import_export && .build/bin/phpunit -c Tests/Build/UnitTests.xml Tests/Unit/Component/PreProcessor/MapFieldsTest.php"
 ```
 
 ## Usage
