@@ -17,7 +17,26 @@ contains one TYPO3 installation per version and lets you switch between them.
 ```bash
 ddev start
 ddev ext-checkout            # clones the extension into packages/t3import_export
+ddev t3-switch 13            # configures, installs and sets up TYPO3 13
 ```
+
+Open https://t3import-export-bundle.ddev.site/typo3/ and log in with `admin` / `Password.1`.
+
+## Switching TYPO3 versions
+
+```bash
+ddev t3-switch               # list versions, show the active one
+ddev t3-switch 11            # switch to TYPO3 11
+ddev t3-switch 12 --keep-branch   # keep the currently checked out extension branch
+```
+
+`t3-switch` checks out the extension branch mapped to the version (it refuses if
+`packages/t3import_export` has uncommitted changes), writes
+`.ddev/config.zz-version.yaml` (PHP version, docroot, composer root, database),
+restarts DDEV and runs `composer install` and `composer bundle:setup` in the
+instance. Data of each version stays in its own database.
+
+The mapping of versions to PHP and extension branches is in `.ddev/versions`.
 
 ## Layout
 
@@ -53,6 +72,8 @@ disabled in these two instances. They are meant for local development only.
 | Command                         | Description                                                    |
 |---------------------------------|----------------------------------------------------------------|
 | `ddev ext-checkout [branch]`    | Clone the extension, optionally check out a branch             |
+| `ddev t3-switch [major]`        | Switch the active TYPO3 version, or list versions              |
+| `ddev composer bundle:setup`    | Install TYPO3 in the active instance (idempotent)              |
 
 ## Linting the bundle
 
