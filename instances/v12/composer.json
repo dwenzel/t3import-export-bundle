@@ -1,0 +1,62 @@
+{
+    "name": "dwenzel/t3import-export-instance-v12",
+    "description": "TYPO3 12 instance for developing cpsit/t3import_export (extension branch: develop)",
+    "license": "GPL-2.0-or-later",
+    "type": "project",
+    "require": {
+        "cpsit/t3import_export": "@dev",
+        "helhum/typo3-console": "^8.3",
+        "typo3/cms-backend": "^12.4",
+        "typo3/cms-belog": "^12.4",
+        "typo3/cms-beuser": "^12.4",
+        "typo3/cms-core": "^12.4",
+        "typo3/cms-extbase": "^12.4",
+        "typo3/cms-extensionmanager": "^12.4",
+        "typo3/cms-filelist": "^12.4",
+        "typo3/cms-fluid": "^12.4",
+        "typo3/cms-fluid-styled-content": "^12.4",
+        "typo3/cms-frontend": "^12.4",
+        "typo3/cms-info": "^12.4",
+        "typo3/cms-install": "^12.4",
+        "typo3/cms-lowlevel": "^12.4",
+        "typo3/cms-scheduler": "^12.4",
+        "typo3/cms-setup": "^12.4",
+        "typo3/cms-tstemplate": "^12.4"
+    },
+    "repositories": {
+        "packages": {
+            "type": "path",
+            "url": "../../packages/*",
+            "options": {
+                "symlink": true
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "helhum/typo3-console-plugin": true,
+            "typo3/class-alias-loader": true,
+            "typo3/cms-composer-installers": true
+        },
+        "sort-packages": true,
+        "audit": {
+            "block-insecure": false
+        },
+        "platform": {
+            "php": "8.3"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "web-dir": "public"
+        }
+    },
+    "scripts": {
+        "bundle:setup": "../shared/bin/setup-instance 12"
+    },
+    "scripts-descriptions": {
+        "bundle:setup": "Create the database and install TYPO3 non-interactively"
+    }
+}

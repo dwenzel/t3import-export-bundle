@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+# Install TYPO3 in the current instance directory (composer root) non-interactively.
+# Usage (from an instance's composer.json): setup-instance <major-version>
+# Runs inside the DDEV web container. Idempotent: an installed instance is left as is,
+# only the extension setup (database schema) runs again.
+# The database connection is always taken from TYPO3_INSTANCE_DB at runtime
+# (see instances/shared/development.php), not from the generated settings file.
+
+set -euo pipefail
+
+major="${1:?TYPO3 major version required}"
+db_name="${TYPO3_INSTANCE_DB:-t3_v${major}}"
+admin_user="${TYPO3_ADMIN_USER:-admin}"
+admin_password="${TYPO3_ADMIN_PASSWORD:-Password.1}"
+site_url="${DDEV_PRIMARY_URL:-https://t3import-export-bundle.ddev.site}/"
+
+mysql -h db -uroot -proot -e "CREATE DATABASE IF NOT EXISTS \`${db_name}\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
+
+if [ "${major}" -ge 12 ]; then
+    settings_file="config/system/settings.php"
+    cli="vendor/bin/typo3"
+else
+    # TYPO3 11 uses typo3-console 7 (binary typo3cms)
+    settings_file="public/typo3conf/LocalConfiguration.php"
+    cli="vendor/bin/typo3cms"
+fi
+
+if [ -f "${settings_file}" ]; then
+    echo "TYPO3 ${major} already installed (${settings_file} exists)."
+elif [ "${major}" -ge 12 ]; then
+    "${cli}" setup \
+        --no-interaction \
+        --force \
+        --driver=mysqli \
+        --host=db \
+        --port=3306 \
+        --dbname="${db_name}" \
+        --username=root \
+        --password=root \
+        --admin-username="${admin_user}" \
+        --admin-user-password="${admin_password}" \
+        --admin-email=admin@example.com \
+        --project-name="t3import_export TYPO3 ${major}" \
+        --server-type=other \
+        --create-site="${site_url}"
+else
+    "${cli}" install:setup \
+        --no-interaction \
+        --force \
+        --database-driver=mysqli \
+        --database-host-name=db \
+        --database-port=3306 \
+        --database-name="${db_name}" \
+        --database-user-name=root \
+        --database-user-password=root \
+        --use-existing-database \
+        --admin-user-name="${admin_user}" \
+        --admin-password="${admin_password}" \
+        --site-name="t3import_export TYPO3 ${major}" \
+        --site-setup-type=site \
+        --site-base-url="${site_url}" \
+        --web-server-config=none
+fi
+
+"${cli}" extension:setup
+"${cli}" cache:flush
+
+echo "Backend: ${site_url}typo3/ (user: ${admin_user}, password: ${admin_password})"
