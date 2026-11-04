@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+## Description: Clone the t3import_export extension into packages/ (or check out a branch in it)
+## Usage: ext-checkout [branch]
+## Example: "ddev ext-checkout" or "ddev ext-checkout feature/v13compatible"
+
+set -euo pipefail
+
+repo_url="${T3IE_REPO_URL:-https://github.com/dwenzel/t3import_export.git}"
+target="${DDEV_APPROOT}/packages/t3import_export"
+branch="${1:-}"
+
+if [ ! -d "${target}/.git" ]; then
+    echo "Cloning ${repo_url} into packages/t3import_export"
+    git clone "${repo_url}" "${target}"
+fi
+
+if [ -n "${branch}" ]; then
+    if [ -n "$(git -C "${target}" status --porcelain)" ]; then
+        echo "packages/t3import_export has uncommitted changes, not switching to '${branch}'." >&2
+        exit 1
+    fi
+    git -C "${target}" fetch --quiet origin
+    git -C "${target}" checkout --quiet "${branch}"
+    git -C "${target}" pull --quiet --ff-only || true
+fi
+
+echo "packages/t3import_export is on branch: $(git -C "${target}" rev-parse --abbrev-ref HEAD)"

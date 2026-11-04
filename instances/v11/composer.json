@@ -1,0 +1,63 @@
+{
+    "name": "dwenzel/t3import-export-instance-v11",
+    "description": "TYPO3 11 instance for developing cpsit/t3import_export (extension branch: feature/version11compatible)",
+    "license": "GPL-2.0-or-later",
+    "type": "project",
+    "require": {
+        "cpsit/t3import_export": "@dev",
+        "helhum/typo3-console": "^7.1",
+        "typo3/cms-backend": "^11.5",
+        "typo3/cms-belog": "^11.5",
+        "typo3/cms-beuser": "^11.5",
+        "typo3/cms-core": "^11.5",
+        "typo3/cms-extbase": "^11.5",
+        "typo3/cms-extensionmanager": "^11.5",
+        "typo3/cms-filelist": "^11.5",
+        "typo3/cms-fluid": "^11.5",
+        "typo3/cms-fluid-styled-content": "^11.5",
+        "typo3/cms-frontend": "^11.5",
+        "typo3/cms-info": "^11.5",
+        "typo3/cms-install": "^11.5",
+        "typo3/cms-lowlevel": "^11.5",
+        "typo3/cms-recordlist": "^11.5",
+        "typo3/cms-scheduler": "^11.5",
+        "typo3/cms-setup": "^11.5",
+        "typo3/cms-tstemplate": "^11.5"
+    },
+    "repositories": {
+        "packages": {
+            "type": "path",
+            "url": "../../packages/*",
+            "options": {
+                "symlink": true
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "helhum/typo3-console-plugin": true,
+            "typo3/class-alias-loader": true,
+            "typo3/cms-composer-installers": true
+        },
+        "sort-packages": true,
+        "audit": {
+            "block-insecure": false
+        },
+        "platform": {
+            "php": "8.2"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "web-dir": "public"
+        }
+    },
+    "scripts": {
+        "bundle:setup": "../shared/bin/setup-instance 11"
+    },
+    "scripts-descriptions": {
+        "bundle:setup": "Create the database and install TYPO3 non-interactively"
+    }
+}
