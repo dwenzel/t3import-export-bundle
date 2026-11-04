@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+## Description: Run composer in the extension working copy (packages/t3import_export) with the PHP of the active TYPO3 version
+## Usage: ext <composer arguments>
+## Example: "ddev ext update", "ddev ext test:unit", "ddev ext test:functional", "ddev ext lint"
+## ExecRaw: true
+
+set -euo pipefail
+
+ext_dir=/var/www/html/packages/t3import_export
+
+if [ ! -f "${ext_dir}/composer.json" ]; then
+    echo "packages/t3import_export is missing, run 'ddev ext-checkout' first." >&2
+    exit 1
+fi
+
+if [ "$#" -eq 0 ]; then
+    set -- list
+fi
+
+# Some branches reference GitHub repositories via SSH (git@github.com:...).
+# The web container has no SSH key for GitHub, so use HTTPS for those, scoped to this command.
+export GIT_CONFIG_COUNT=1
+export GIT_CONFIG_KEY_0=url.https://github.com/.insteadOf
+export GIT_CONFIG_VALUE_0=git@github.com:
+
+# TYPO3 11 and 12 are out of free support; their last public releases have security
+# advisories. Allow installing them for local development of the support branches.
+if [ "${TYPO3_INSTANCE_VERSION:-13}" -lt 13 ]; then
+    export COMPOSER_NO_SECURITY_BLOCKING=1
+fi
+
+# Functional tests (typo3/testing-framework) create their own databases with this prefix.
+export typo3DatabaseName="${typo3DatabaseName:-t3_test}"
+
+cd "${ext_dir}"
+exec composer "$@"

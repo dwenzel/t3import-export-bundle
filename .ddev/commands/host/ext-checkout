@@ -16,7 +16,9 @@ if [ ! -d "${target}/.git" ]; then
 fi
 
 if [ -n "${branch}" ]; then
-    if [ -n "$(git -C "${target}" status --porcelain)" ]; then
+    # Only changes to tracked files block the switch. Untracked build files
+    # (e.g. composer.lock) are kept; git refuses on its own if they would be overwritten.
+    if [ -n "$(git -C "${target}" status --porcelain --untracked-files=no)" ]; then
         echo "packages/t3import_export has uncommitted changes, not switching to '${branch}'." >&2
         exit 1
     fi
