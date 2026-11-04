@@ -54,7 +54,7 @@ The mapping of versions to PHP and extension branches is in `.ddev/versions`.
 | Instance | TYPO3 | PHP | Extension branch              | Database | Console |
 |----------|-------|-----|-------------------------------|----------|---------|
 | v11      | 11.5  | 8.2 | `feature/version11compatible` | `t3_v11` | 7.x (`typo3cms`) |
-| v12      | 12.4  | 8.3 | `develop`                     | `t3_v12` | 8.x     |
+| v12      | 12.4  | 8.3 | `support/typo3-v12`           | `t3_v12` | 8.x     |
 | v13      | 13.4  | 8.3 | `feature/v13compatible`       | `t3_v13` | 8.x/9.x |
 
 Each instance requires the extension from `packages/t3import_export` through a
