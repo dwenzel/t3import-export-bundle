@@ -8,8 +8,9 @@ root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${root}"
 
 list_scripts() {
-    # Collect shell scripts: DDEV custom commands and Build/*.sh
-    find .ddev/commands -type f ! -name '*.md' ! -name '.gitattributes' -path '*/commands/*/*' 2>/dev/null
+    # Collect shell scripts: DDEV custom commands, instance helpers, Build/*.sh
+    find .ddev/commands -type f ! -name '*.md' ! -name '*.txt' ! -name '.gitattributes' -path '*/commands/*/*' 2>/dev/null
+    find instances/shared/bin -type f 2>/dev/null
     find Build tests -type f -name '*.sh' 2>/dev/null || true
 }
 

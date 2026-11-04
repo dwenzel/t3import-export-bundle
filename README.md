@@ -25,8 +25,28 @@ ddev ext-checkout            # clones the extension into packages/t3import_expor
 |------------------------------|-----------------------------------------------------------|
 | `.ddev/`                     | DDEV configuration and custom commands                    |
 | `packages/t3import_export/`  | Working copy of the extension (own git repo, gitignored)  |
+| `instances/v11`, `v12`, `v13`| One TYPO3 installation (composer root) per major version  |
+| `instances/shared/`          | Development settings and setup script used by all instances |
 | `Build/lint.sh`              | Lint the bundle (shellcheck, editorconfig)                |
 | `ROADMAP.md`                 | Plan for the dev environment and the branch consolidation |
+
+## TYPO3 instances
+
+| Instance | TYPO3 | PHP | Extension branch              | Database | Console |
+|----------|-------|-----|-------------------------------|----------|---------|
+| v11      | 11.5  | 8.2 | `feature/version11compatible` | `t3_v11` | 7.x (`typo3cms`) |
+| v12      | 12.4  | 8.3 | `develop`                     | `t3_v12` | 8.x     |
+| v13      | 13.4  | 8.3 | `feature/v13compatible`       | `t3_v13` | 8.x/9.x |
+
+Each instance requires the extension from `packages/t3import_export` through a
+symlinked path repository. The database connection is taken from the
+environment variable `TYPO3_INSTANCE_DB` (see `instances/shared/development.php`).
+
+Backend login for all instances: `admin` / `Password.1`.
+
+TYPO3 11 and 12 are out of free support. Their last public releases depend on
+packages with known security advisories, so `config.audit.block-insecure` is
+disabled in these two instances. They are meant for local development only.
 
 ## Commands
 
