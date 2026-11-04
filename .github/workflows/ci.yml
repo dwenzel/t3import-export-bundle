@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lint shell scripts and editorconfig
+        run: Build/lint.sh
+
+  composer-validate:
+    name: composer-validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate instance composer.json files
+        run: |
+          for dir in instances/v*/; do
+            echo "::group::${dir}"
+            composer validate --no-check-publish --no-check-lock -d "${dir}"
+            echo "::endgroup::"
+          done
