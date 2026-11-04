@@ -80,3 +80,8 @@ disabled in these two instances. They are meant for local development only.
 ```bash
 Build/lint.sh
 ```
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the branching model and workflow,
+and [ROADMAP.md](ROADMAP.md) for planned work.
