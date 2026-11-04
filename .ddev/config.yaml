@@ -1,0 +1,24 @@
+name: t3import-export-bundle
+type: php
+# docroot, composer_root and php_version are set per TYPO3 version in the
+# generated file .ddev/config.zz-version.yaml (see `ddev t3-switch`).
+# The values below are the defaults (TYPO3 13).
+docroot: instances/v13/public
+composer_root: instances/v13
+php_version: "8.3"
+webserver_type: nginx-fpm
+xdebug_enabled: false
+database:
+  type: mariadb
+  version: "10.11"
+composer_version: "2"
+use_dns_when_possible: true
+disable_settings_management: true
+webimage_extra_packages: [php8.2-pcov, php8.3-pcov]
+web_environment:
+  - TYPO3_CONTEXT=Development/DDEV
+  - typo3DatabaseHost=db
+  - typo3DatabaseUsername=root
+  - typo3DatabasePassword=root
+  - typo3DatabaseName=t3_test
+corepack_enable: false
