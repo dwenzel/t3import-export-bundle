@@ -93,6 +93,10 @@ Run `ddev ext update` after switching versions: the branches use different
 build directories (`.Build/` vs. `.build/`), which are the same directory on
 case-insensitive file systems (macOS).
 
+Composer fetches GitHub repositories via HTTPS, also when they are referenced by
+an SSH URL. For private repositories, forward your SSH keys with `ddev auth ssh`
+(needed again after `ddev poweroff`).
+
 Known limitation: the extension branches for TYPO3 11 and 12 currently cannot
 install their dev dependencies (`roave/security-advisories` conflicts with all
 TYPO3 11.5 releases; `nimut/testing-framework` 5.x requires PHP < 7.5). This is
