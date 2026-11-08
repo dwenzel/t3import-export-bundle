@@ -1,7 +1,7 @@
 # Roadmap
 
 Goal: one development environment for all maintained TYPO3 versions of
-t3import_export, and an extension repository that follows the branching model
+Import & Export, and an extension repository that follows the branching model
 described in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Issues: [bundle](https://github.com/dwenzel/t3import-export-bundle/issues),
@@ -57,6 +57,8 @@ branches from 2016 to 2020.
 | open   | extension#22 | Integrate `feature/v13compatible` into `main`, release 3.0.0 |
 | open   |              | Release `cpsit/import-export-core` 0.1.0 (blocker for 3.0.0, separate repository) |
 | open   | extension#23 | Fix editorconfig violations, make lint a required check |
+| open   | extension#28 | Publish tagged releases to TER automatically (TER only has outdated versions) |
+| open   | extension#29 | Use the correct extension name ("Import & Export") in the documentation |
 
 ## Phase 4: TYPO3 14
 

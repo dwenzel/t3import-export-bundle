@@ -1,7 +1,7 @@
 # Contributing
 
 This repository contains the development environment for the TYPO3 extension
-[t3import_export](https://github.com/dwenzel/t3import_export). Changes to the
+[Import & Export](https://github.com/dwenzel/t3import_export). Changes to the
 extension itself are made in the extension repository; see its
 [CONTRIBUTING.md](https://github.com/dwenzel/t3import_export/blob/main/CONTRIBUTING.md).
 
