@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+## Description: Run composer in the extension working copy (packages/t3import_export) with the PHP of the active TYPO3 version
+## Usage: ext <composer arguments>
+## Example: "ddev ext update", "ddev ext test:unit", "ddev ext test:functional", "ddev ext lint"
+
+set -euo pipefail
+
+# With Mutagen (performance mode on macOS), files are synced between host and
+# container with a delay. Sync before running, so that the container sees the
+# current files, and afterwards, so that changes made by composer scripts
+# (e.g. fixers) are visible on the host.
+sync_files() {
+    ddev mutagen sync >/dev/null 2>&1 || true
+}
+
+sync_files
+status=0
+ddev exec --raw -- /var/www/html/instances/shared/bin/ext-composer "$@" || status=$?
+sync_files
+exit "${status}"

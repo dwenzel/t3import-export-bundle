@@ -101,10 +101,18 @@ Composer fetches GitHub repositories via HTTPS, also when they are referenced by
 an SSH URL. For private repositories, forward your SSH keys with `ddev auth ssh`
 (needed again after `ddev poweroff`).
 
-Known limitation: the extension branches for TYPO3 11 and 12 currently cannot
-install their dev dependencies (`roave/security-advisories` conflicts with all
-TYPO3 11.5 releases; `nimut/testing-framework` 5.x requires PHP < 7.5). This is
-tracked in ROADMAP.md and will be fixed in the support branches.
+The support branches for TYPO3 11 and 12 get installable dev dependencies with
+extension#57/#58 (`typo3/testing-framework` 7, PHPUnit 9.6); until those are
+merged, `ddev ext update` fails there.
+
+### File synchronisation
+
+On macOS, DDEV uses Mutagen to synchronise the project between host and
+container. Changes are synced with a short delay, in both directions. `ddev ext`
+syncs before and after running composer. For other commands in the container
+right after editing files on the host (e.g. `ddev exec`), run `ddev mutagen sync`
+first. `Build/lint.sh` does not mount the project but streams the files into the
+linter containers, for the same reason.
 
 ## Linting the bundle
 
