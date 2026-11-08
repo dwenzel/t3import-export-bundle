@@ -1,6 +1,6 @@
 # TYPO3 versions available in this bundle.
 # Columns: <major> <php_version> <extension branch>
 # Used by `ddev t3-switch`. Adding a version: add a line and an instances/v<major>/ directory.
-11 8.2 feature/version11compatible
+11 8.2 support/typo3-v11
 12 8.3 support/typo3-v12
-13 8.3 feature/v13compatible
+13 8.3 main
