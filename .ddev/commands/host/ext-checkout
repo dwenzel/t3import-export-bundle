@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-## Description: Clone the t3import_export extension into packages/ (or check out a branch in it)
+## Description: Clone the t3import_export extension and the import-export-core library into packages/ (or check out a branch of the extension)
 ## Usage: ext-checkout [branch]
 ## Example: "ddev ext-checkout" or "ddev ext-checkout feature/v13compatible"
 
@@ -8,6 +8,8 @@ set -euo pipefail
 
 repo_url="${T3IE_REPO_URL:-https://github.com/dwenzel/t3import_export.git}"
 target="${DDEV_APPROOT}/packages/t3import_export"
+core_repo_url="${T3IE_CORE_REPO_URL:-https://github.com/CPS-IT/import-export-core.git}"
+core_target="${DDEV_APPROOT}/packages/import-export-core"
 branch="${1:-}"
 
 if [ ! -d "${target}/.git" ]; then
@@ -27,4 +29,12 @@ if [ -n "${branch}" ]; then
     git -C "${target}" pull --quiet --ff-only || true
 fi
 
+# The core library is used by the TYPO3 13 branch of the extension. The v13
+# instance takes it from packages/ (path repository) instead of Packagist.
+if [ ! -d "${core_target}/.git" ]; then
+    echo "Cloning ${core_repo_url} into packages/import-export-core"
+    git clone "${core_repo_url}" "${core_target}"
+fi
+
 echo "packages/t3import_export is on branch: $(git -C "${target}" rev-parse --abbrev-ref HEAD)"
+echo "packages/import-export-core is on branch: $(git -C "${core_target}" rev-parse --abbrev-ref HEAD)"

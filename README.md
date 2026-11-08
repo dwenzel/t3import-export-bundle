@@ -16,7 +16,7 @@ contains one TYPO3 installation per version and lets you switch between them.
 
 ```bash
 ddev start
-ddev ext-checkout            # clones the extension into packages/t3import_export
+ddev ext-checkout            # clones the extension and the core library into packages/
 ddev t3-switch 13            # configures, installs and sets up TYPO3 13
 ```
 
@@ -44,6 +44,7 @@ The mapping of versions to PHP and extension branches is in `.ddev/versions`.
 |------------------------------|-----------------------------------------------------------|
 | `.ddev/`                     | DDEV configuration and custom commands                    |
 | `packages/t3import_export/`  | Working copy of the extension (own git repo, gitignored)  |
+| `packages/import-export-core/` | Working copy of the core library `cpsit/import-export-core` (own git repo, gitignored) |
 | `instances/v11`, `v12`, `v13`| One TYPO3 installation (composer root) per major version  |
 | `instances/shared/`          | Development settings and setup script used by all instances |
 | `Build/lint.sh`              | Lint the bundle (shellcheck, editorconfig)                |
@@ -58,7 +59,10 @@ The mapping of versions to PHP and extension branches is in `.ddev/versions`.
 | v13      | 13.4  | 8.3 | `feature/v13compatible`       | `t3_v13` | 8.x/9.x |
 
 Each instance requires the extension from `packages/t3import_export` through a
-symlinked path repository. The database connection is taken from the
+symlinked path repository. The TYPO3 13 branch of the extension also requires
+the core library `cpsit/import-export-core`; the v13 instance takes it from
+`packages/import-export-core` in the same way, or from Packagist if the clone
+is missing. The database connection is taken from the
 environment variable `TYPO3_INSTANCE_DB` (see `instances/shared/development.php`).
 
 Backend login for all instances: `admin` / `Password.1`.
@@ -71,7 +75,7 @@ disabled in these two instances. They are meant for local development only.
 
 | Command                         | Description                                                    |
 |---------------------------------|----------------------------------------------------------------|
-| `ddev ext-checkout [branch]`    | Clone the extension, optionally check out a branch             |
+| `ddev ext-checkout [branch]`    | Clone the extension and the core library, optionally check out a branch of the extension |
 | `ddev t3-switch [major]`        | Switch the active TYPO3 version, or list versions              |
 | `ddev composer bundle:setup`    | Install TYPO3 in the active instance (idempotent)              |
 | `ddev ext <composer args>`      | Run composer in `packages/t3import_export` (tests, linters)    |
