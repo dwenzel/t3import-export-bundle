@@ -21,12 +21,16 @@ branches from 2016 to 2020.
 
 ## Target
 
-| TYPO3 | Extension branch    | Version line |
-|-------|---------------------|--------------|
-| 14    | `main` (later)      | 4.x          |
-| 13.4  | `main`              | 3.x          |
-| 12.4  | `support/typo3-v12` | 2.x          |
-| 11.5  | `support/typo3-v11` | to be decided (see extension#19) |
+| TYPO3 | Extension branch    | Version line | State |
+|-------|---------------------|--------------|-------|
+| 14    | `main` (later)      | 4.x          | planned |
+| 13.4  | `main`              | 3.x          | 3.0.0 released |
+| 12.4  | `support/typo3-v12` | 2.x          | 2.0.1 |
+| 11.5  | `support/typo3-v11` | to be decided (see extension#19) | integrated, not released |
+
+The core library [cpsit/import-export-core](https://github.com/CPS-IT/import-export-core)
+(required by 3.x) has its own roadmap in its `Documentation/Architecture.md`;
+0.1.0 is released.
 
 ## Phase 1: Development environment (bundle)
 
@@ -35,30 +39,32 @@ branches from 2016 to 2020.
 | done   |       | DDEV base configuration, `ddev ext-checkout` |
 | done   |       | TYPO3 instances v11, v12, v13 with separate databases |
 | done   |       | `ddev t3-switch <version>` |
-| open   | #2    | `ddev ext` for the extension's tests and linters |
-| open   | #3    | CI for the bundle |
-| open   | #1    | Branching model, CONTRIBUTING.md, this roadmap |
-| open   | #6    | Lint script reads stale files after in-place edits |
+| done   | #2    | `ddev ext` for the extension's tests and linters |
+| done   | #3    | CI for the bundle |
+| done   | #1    | Branching model, CONTRIBUTING.md, this roadmap |
+| done   | #12   | Check out the core library next to the extension |
+| open   | #6    | Lint script and tests read stale files after in-place edits |
 
 ## Phase 2: Branching model in the extension
 
 | Status | Issue | Item |
 |--------|-------|------|
-| open   | extension#18 | Rename `master` to `main`, create `support/typo3-v11` and `support/typo3-v12`, protect branches, CONTRIBUTING.md, support matrix, remove `develop`, `release/*` and stale branches (`archive/*` tags for unmerged work) |
-| open   | extension#19 | Integrate `feature/version11compatible` into `support/typo3-v11`, release |
+| done   | extension#18 | Rename `master` to `main`, support branches, rulesets, CONTRIBUTING.md, support matrix, stale branches removed (`archive/*` tags); open: remove `develop` after triaging extension#16 and #17 |
+| open   | extension#19 | `feature/version11compatible` is integrated into `support/typo3-v11`; open: version number and release |
 | open   | extension#20 | Make dev dependencies of the support branches installable on PHP 8 |
-| open   | extension#21 | Port TYPO3 11 fixes to TYPO3 12 and 13 where applicable |
-| open   | bundle#4     | Map the bundle's TYPO3 versions to the new branches |
+| open   | extension#21 | Blockers for 3.0.0 fixed; open: remaining fixes for 3.0.x and `support/typo3-v12` |
+| done   | bundle#4     | Map the bundle's TYPO3 versions to the new branches |
 
 ## Phase 3: TYPO3 13 release
 
 | Status | Issue | Item |
 |--------|-------|------|
-| open   | extension#22 | Integrate `feature/v13compatible` into `main`, release 3.0.0 |
-| open   |              | Release `cpsit/import-export-core` 0.1.0 (blocker for 3.0.0, separate repository) |
+| done   | extension#22 | Integrate `feature/v13compatible` into `main`, release 3.0.0 |
+| done   |              | Release `cpsit/import-export-core` 0.1.0 |
+| done   | extension#29 | Use the correct extension name ("Import & Export") in the documentation |
+| open   | extension#31 | CI: done for `main` (required checks); open: support branches |
 | open   | extension#23 | Fix editorconfig violations, make lint a required check |
 | open   | extension#28 | Publish tagged releases to TER automatically (TER only has outdated versions) |
-| open   | extension#29 | Use the correct extension name ("Import & Export") in the documentation |
 
 ## Phase 4: TYPO3 14
 
