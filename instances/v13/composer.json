@@ -4,7 +4,7 @@
     "license": "GPL-2.0-or-later",
     "type": "project",
     "require": {
-        "cpsit/import-export-core": "dev-feature/yamlConfiguration as 0.1.0",
+        "cpsit/import-export-core": "@dev",
         "cpsit/t3import_export": "@dev",
         "helhum/typo3-console": "^8.3 || ^9.0",
         "typo3/cms-backend": "^13.4",
@@ -30,10 +30,6 @@
             "options": {
                 "symlink": true
             }
-        },
-        "import-export-core": {
-            "type": "vcs",
-            "url": "https://github.com/CPS-IT/import-export-core.git"
         }
     },
     "minimum-stability": "dev",
