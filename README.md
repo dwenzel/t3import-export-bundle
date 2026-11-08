@@ -74,6 +74,33 @@ disabled in these two instances. They are meant for local development only.
 | `ddev ext-checkout [branch]`    | Clone the extension, optionally check out a branch             |
 | `ddev t3-switch [major]`        | Switch the active TYPO3 version, or list versions              |
 | `ddev composer bundle:setup`    | Install TYPO3 in the active instance (idempotent)              |
+| `ddev ext <composer args>`      | Run composer in `packages/t3import_export` (tests, linters)    |
+
+## Testing the extension
+
+`ddev ext` runs the extension's own composer scripts with the PHP version of the
+active TYPO3 instance. Functional tests use the DDEV database server.
+
+```bash
+ddev ext update              # install the extension's dev dependencies (after every branch switch)
+ddev ext test:unit
+ddev ext test:functional
+ddev ext lint                # only on branches that define it
+ddev ext sca
+```
+
+Run `ddev ext update` after switching versions: the branches use different
+build directories (`.Build/` vs. `.build/`), which are the same directory on
+case-insensitive file systems (macOS).
+
+Composer fetches GitHub repositories via HTTPS, also when they are referenced by
+an SSH URL. For private repositories, forward your SSH keys with `ddev auth ssh`
+(needed again after `ddev poweroff`).
+
+Known limitation: the extension branches for TYPO3 11 and 12 currently cannot
+install their dev dependencies (`roave/security-advisories` conflicts with all
+TYPO3 11.5 releases; `nimut/testing-framework` 5.x requires PHP < 7.5). This is
+tracked in ROADMAP.md and will be fixed in the support branches.
 
 ## Linting the bundle
 
