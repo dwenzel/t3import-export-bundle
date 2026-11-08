@@ -1,8 +1,8 @@
 # t3import-export-bundle
 
 DDEV based development environment for the TYPO3 extension
-[t3import_export](https://github.com/dwenzel/t3import_export)
-(`cpsit/t3import_export`).
+[Import & Export](https://github.com/dwenzel/t3import_export)
+(extension key `t3import_export`, package `cpsit/t3import_export`).
 
 The extension is maintained for several TYPO3 versions. This bundle
 contains one TYPO3 installation per version and lets you switch between them.
@@ -107,3 +107,8 @@ tracked in ROADMAP.md and will be fixed in the support branches.
 ```bash
 Build/lint.sh
 ```
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the branching model and workflow,
+and [ROADMAP.md](ROADMAP.md) for planned work.
