@@ -34,7 +34,10 @@ ddev t3-switch 12 --keep-branch   # keep the currently checked out extension bra
 `packages/t3import_export` has uncommitted changes), writes
 `.ddev/config.zz-version.yaml` (PHP version, docroot, composer root, database),
 restarts DDEV and runs `composer install` and `composer bundle:setup` in the
-instance. Data of each version stays in its own database.
+instance. Then it runs `ddev ext update`, because the extension's untracked
+`composer.lock` still holds the dependencies of the previous branch. With
+`--no-setup`, these steps are skipped. Data of each version stays in its own
+database.
 
 The mapping of versions to PHP and extension branches is in `.ddev/versions`.
 
@@ -86,16 +89,17 @@ disabled in these two instances. They are meant for local development only.
 active TYPO3 instance. Functional tests use the DDEV database server.
 
 ```bash
-ddev ext update              # install the extension's dev dependencies (after every branch switch)
+ddev ext update              # install the extension's dev dependencies (t3-switch does this)
 ddev ext test:unit
 ddev ext test:functional
 ddev ext lint                # only on branches that define it
 ddev ext sca
 ```
 
-Run `ddev ext update` after switching versions: the branches use different
-build directories (`.Build/` vs. `.build/`), which are the same directory on
-case-insensitive file systems (macOS).
+Run `ddev ext update` after checking out another extension branch without
+`t3-switch` (or after `t3-switch --no-setup`): the branches use different
+dependencies and build directories (`.Build/` vs. `.build/`, the same directory
+on case-insensitive file systems such as macOS).
 
 Composer fetches GitHub repositories via HTTPS, also when they are referenced by
 an SSH URL. For private repositories, forward your SSH keys with `ddev auth ssh`

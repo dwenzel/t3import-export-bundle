@@ -3,7 +3,7 @@
 ## Description: Switch the active TYPO3 version (PHP, docroot, database, extension branch)
 ## Usage: t3-switch [major] [--keep-branch] [--no-setup]
 ## Example: "ddev t3-switch" (show current), "ddev t3-switch 12", "ddev t3-switch 11 --keep-branch"
-## Flags: [{"Name":"keep-branch","Usage":"Do not check out the extension branch mapped to this version"},{"Name":"no-setup","Usage":"Only reconfigure and restart, skip composer install and TYPO3 setup"}]
+## Flags: [{"Name":"keep-branch","Usage":"Do not check out the extension branch mapped to this version"},{"Name":"no-setup","Usage":"Only reconfigure and restart, skip composer install, TYPO3 setup and the extension's composer update"}]
 
 set -euo pipefail
 
@@ -83,6 +83,15 @@ ddev restart
 if [ "${run_setup}" -eq 1 ]; then
     ddev composer install --no-interaction --no-progress
     ddev composer bundle:setup
+
+    # The extension's composer.lock is untracked and survives the branch switch,
+    # so it still holds the dependencies of the previous branch or PHP version.
+    # Resolve them again for the active one.
+    if [ -f "${DDEV_APPROOT}/packages/t3import_export/composer.json" ]; then
+        if ! "${DDEV_APPROOT}/.ddev/commands/host/ext" update --no-interaction --no-progress; then
+            echo "Updating the extension's dev dependencies failed; run 'ddev ext update' to retry." >&2
+        fi
+    fi
 fi
 
 echo "Active: TYPO3 ${major}, PHP ${php_version}, extension branch: $(git -C "${DDEV_APPROOT}/packages/t3import_export" rev-parse --abbrev-ref HEAD 2>/dev/null || echo 'not checked out')"
