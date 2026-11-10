@@ -5,7 +5,9 @@ Import & Export, and an extension repository that follows the branching model
 described in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Issues: [bundle](https://github.com/dwenzel/t3import-export-bundle/issues),
-[extension](https://github.com/dwenzel/t3import_export/issues)
+[extension](https://github.com/dwenzel/t3import_export/issues),
+[core library](https://github.com/CPS-IT/import-export-core/issues),
+[t3extension_tools](https://github.com/dwenzel/t3extension_tools/issues)
 
 ## Starting point (November 2026)
 
@@ -19,20 +21,26 @@ Issues: [bundle](https://github.com/dwenzel/t3import-export-bundle/issues),
 In addition there were `release/*` branches (all tagged) and several feature
 branches from 2016 to 2020.
 
-## Target
+## Current state
 
-| TYPO3 | Extension branch    | Version line | State |
-|-------|---------------------|--------------|-------|
-| 14    | `main` (later)      | 4.x          | planned |
-| 13.4  | `main`              | 3.x          | 3.0.0 released |
-| 12.4  | `support/typo3-v12` | 2.x          | 2.0.1 |
-| 11.5  | `support/typo3-v11` | to be decided (see extension#19) | integrated, not released |
+| TYPO3 | Extension branch    | Version line | Latest release | State |
+|-------|---------------------|--------------|----------------|-------|
+| 14    | `main` (later)      | 4.x          | none           | planned |
+| 13.4  | `main`              | 3.x          | 3.1.0          | maintained, 3.1.1 prepared |
+| 12.4  | `support/typo3-v12` | 2.x          | 2.0.2          | bugfixes |
+| 11.5  | `support/typo3-v11` | 1.x          | 1.1.0          | bugfixes |
+
+All releases since 1.1.0 are published to TER by the tag push.
 
 The core library [cpsit/import-export-core](https://github.com/CPS-IT/import-export-core)
-(required by 3.x) has its own roadmap in its `Documentation/Architecture.md`;
-0.1.0 is released.
+(required by 3.x) has its own roadmap in its `Documentation/Architecture.md`.
+0.1.0 is released; 0.2.0 is in progress.
 
-## Phase 1: Development environment (bundle)
+[t3extension_tools](https://github.com/dwenzel/t3extension_tools) (required by
+all versions) is on TER with 3.0.0 (TYPO3 11.5 - 12.4), 4.1.0 (TYPO3 12.4) and
+6.1.1 (TYPO3 13.4 - 14.3).
+
+## Phase 1: Development environment (bundle) - done
 
 | Status | Issue | Item |
 |--------|-------|------|
@@ -43,32 +51,39 @@ The core library [cpsit/import-export-core](https://github.com/CPS-IT/import-exp
 | done   | #3    | CI for the bundle |
 | done   | #1    | Branching model, CONTRIBUTING.md, this roadmap |
 | done   | #12   | Check out the core library next to the extension |
-| open   | #6    | Lint script and tests read stale files after in-place edits |
+| done   | #6    | Lint script and tests read stale files after in-place edits |
 
-## Phase 2: Branching model in the extension
+## Phase 2: Branching model in the extension - done
 
 | Status | Issue | Item |
 |--------|-------|------|
-| done   | extension#18 | Rename `master` to `main`, support branches, rulesets, CONTRIBUTING.md, support matrix, stale branches removed (`archive/*` tags); open: remove `develop` after triaging extension#16 and #17 |
-| open   | extension#19 | `feature/version11compatible` is integrated into `support/typo3-v11`; open: version number and release |
-| open   | extension#20 | Make dev dependencies of the support branches installable on PHP 8 |
-| open   | extension#21 | Blockers for 3.0.0 fixed; open: remaining fixes for 3.0.x and `support/typo3-v12` |
+| done   | extension#18 | Rename `master` to `main`, support branches, rulesets, CONTRIBUTING.md, support matrix, stale branches removed (`archive/*` tags), `develop` removed |
+| done   | extension#19 | `feature/version11compatible` integrated into `support/typo3-v11`, released as 1.1.0 |
+| done   | extension#20 | Dev dependencies of the support branches installable on PHP 8 |
+| done   | extension#21 | TYPO3 11 fixes classified; generic bugs fixed on the current branches |
 | done   | bundle#4     | Map the bundle's TYPO3 versions to the new branches |
 
-## Phase 3: TYPO3 13 release
+## Phase 3: TYPO3 13 releases
 
 | Status | Issue | Item |
 |--------|-------|------|
 | done   | extension#22 | Integrate `feature/v13compatible` into `main`, release 3.0.0 |
 | done   |              | Release `cpsit/import-export-core` 0.1.0 |
 | done   | extension#29 | Use the correct extension name ("Import & Export") in the documentation |
-| open   | extension#31 | CI: done for `main` (required checks); open: support branches |
-| open   | extension#23 | Fix editorconfig violations, make lint a required check |
-| open   | extension#28 | Publish tagged releases to TER automatically (TER only has outdated versions) |
+| done   | extension#31 | GitHub Actions on all maintained branches, Travis CI removed |
+| done   | extension#23 | Fix editorconfig violations, lint as required check |
+| done   | extension#28 | Publish tagged releases to TER automatically |
+| done   | extension#83 | Release 3.0.1 |
+| done   | extension#99 | Release 3.1.0: YAML features, TypoScript configuration deprecated (extension#75), fixes extension#93 and extension#97 |
+| open   | extension#106 | Release 3.1.1: allow t3extension_tools 6.x (extension#104), so that installations from TER can resolve the dependency |
+| open   | extension#108 | Support branches: declare the t3extension_tools dependency, patch releases 2.0.3 and 1.1.1 |
 
-## Phase 4: TYPO3 14
+## Phase 4: Core 0.2 and TYPO3 14 (extension 4.0)
 
 | Status | Issue | Item |
 |--------|-------|------|
+| open   | core 0.2.0 milestone | Core library 0.2: processor in the core, streams, filters, ID map, DBAL source and target |
+| open   | extension#71 | Adopt import-export-core 0.2 (breaking for custom components) |
+| open   | extension#75 | Remove TypoScript configuration and content rendering (deprecated in 3.1) |
 | open   | extension#24 | TYPO3 14 support on `main` (4.0.0); TYPO3 13 moves to `support/typo3-v13` |
 | open   | bundle#5     | TYPO3 14 instance |
