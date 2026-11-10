@@ -26,9 +26,9 @@ branches from 2016 to 2020.
 | TYPO3 | Extension branch    | Version line | Latest release | State |
 |-------|---------------------|--------------|----------------|-------|
 | 14    | `main` (later)      | 4.x          | none           | planned |
-| 13.4  | `main`              | 3.x          | 3.1.0          | maintained, 3.1.1 prepared |
-| 12.4  | `support/typo3-v12` | 2.x          | 2.0.2          | bugfixes |
-| 11.5  | `support/typo3-v11` | 1.x          | 1.1.0          | bugfixes |
+| 13.4  | `main`              | 3.x          | 3.1.1          | maintained |
+| 12.4  | `support/typo3-v12` | 2.x          | 2.0.3          | bugfixes |
+| 11.5  | `support/typo3-v11` | 1.x          | 1.1.1          | bugfixes |
 
 All releases since 1.1.0 are published to TER by the tag push.
 
@@ -75,8 +75,8 @@ all versions) is on TER with 3.0.0 (TYPO3 11.5 - 12.4), 4.1.0 (TYPO3 12.4) and
 | done   | extension#28 | Publish tagged releases to TER automatically |
 | done   | extension#83 | Release 3.0.1 |
 | done   | extension#99 | Release 3.1.0: YAML features, TypoScript configuration deprecated (extension#75), fixes extension#93 and extension#97 |
-| open   | extension#106 | Release 3.1.1: allow t3extension_tools 6.x (extension#104), so that installations from TER can resolve the dependency |
-| open   | extension#108 | Support branches: declare the t3extension_tools dependency, patch releases 2.0.3 and 1.1.1 |
+| done   | extension#106 | Release 3.1.1: allow t3extension_tools 6.x (extension#104), so that installations from TER can resolve the dependency |
+| done   | extension#108 | Support branches: declare the t3extension_tools dependency, released as 2.0.3 and 1.1.1 |
 
 ## Phase 4: Core 0.2 and TYPO3 14 (extension 4.0)
 
