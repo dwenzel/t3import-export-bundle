@@ -82,7 +82,7 @@ these TYPO3 versions yet. TYPO3 15 is only available as development version
 * `cpsit/import-export-core` from `feature/60-symfony-8-v0.1` in
   `packages/import-export-core` (Symfony 8, core#60), checked out by `t3-switch 15`
 * `dwenzel/t3extension-tools` from `feature/22-typo3-v15` on GitHub
-  (TYPO3 15, typo3-console optional, t3extension_tools#22)
+  (TYPO3 15, no typo3-console dependency, t3extension_tools#22)
 
 typo3-console has no version for TYPO3 15, so the v15 instance runs without it.
 The extension's dev dependencies cannot be installed on TYPO3 15 yet

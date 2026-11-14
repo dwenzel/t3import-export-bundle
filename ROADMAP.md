@@ -102,4 +102,4 @@ incompatibilities show up early.
 | done   | bundle#19    | TYPO3 15 instance (15.0.x-dev, PHP 8.5) |
 | open   | extension#116 | TYPO3 15 support; dev dependencies (phpstan-typo3, testing-framework, typoscript-lint, typo3-console) not available for 15 yet |
 | open   | core#60      | Allow Symfony 8 |
-| open   | t3extension_tools#22 | TYPO3 15 support, typo3-console optional |
+| open   | t3extension_tools#22 | TYPO3 15 support, typo3-console dropped (`ExecuteSqlTrait` uses DBAL, 7.0.0) |
