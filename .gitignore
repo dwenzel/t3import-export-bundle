@@ -13,6 +13,8 @@
 /instances/*/public/typo3conf/LocalConfiguration.php
 /instances/*/public/typo3conf/PackageStates.php
 /instances/*/composer.lock
+# Written by "typo3 setup --create-site" (TYPO3 >= 14)
+/instances/*/config/sites/*/setup.typoscript
 
 # Generated DDEV configuration (active TYPO3 version)
 /.ddev/config.zz-version.yaml

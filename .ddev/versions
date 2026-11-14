@@ -1,6 +1,10 @@
 # TYPO3 versions available in this bundle.
-# Columns: <major> <php_version> <extension branch>
+# Columns: <major> <php_version> <extension branch> [<core library branch>]
+# The core library branch is checked out in packages/import-export-core;
+# "-" or no value leaves it as it is (TYPO3 11 and 12 do not use it).
 # Used by `ddev t3-switch`. Adding a version: add a line and an instances/v<major>/ directory.
-11 8.2 support/typo3-v11
-12 8.3 support/typo3-v12
-13 8.3 main
+11 8.2 support/typo3-v11 -
+12 8.3 support/typo3-v12 -
+13 8.3 main main
+14 8.4 feature/24-typo3-v14 main
+15 8.5 feature/116-typo3-v15 feature/60-symfony-8-v0.1

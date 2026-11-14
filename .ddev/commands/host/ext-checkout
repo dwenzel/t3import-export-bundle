@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-## Description: Clone the t3import_export extension and the import-export-core library into packages/ (or check out a branch of the extension)
-## Usage: ext-checkout [branch]
-## Example: "ddev ext-checkout" or "ddev ext-checkout feature/v13compatible"
+## Description: Clone the t3import_export extension and the import-export-core library into packages/ (or check out branches of them)
+## Usage: ext-checkout [branch] [core-branch]
+## Example: "ddev ext-checkout", "ddev ext-checkout main" or "ddev ext-checkout feature/116-typo3-v15 feature/60-symfony-8-v0.1"
 
 set -euo pipefail
 
@@ -11,6 +11,9 @@ target="${DDEV_APPROOT}/packages/t3import_export"
 core_repo_url="${T3IE_CORE_REPO_URL:-https://github.com/CPS-IT/import-export-core.git}"
 core_target="${DDEV_APPROOT}/packages/import-export-core"
 branch="${1:-}"
+# "-" or empty: leave the core library on its current branch
+core_branch="${2:-}"
+[ "${core_branch}" = "-" ] && core_branch=""
 
 if [ ! -d "${target}/.git" ]; then
     echo "Cloning ${repo_url} into packages/t3import_export"
@@ -34,6 +37,17 @@ fi
 if [ ! -d "${core_target}/.git" ]; then
     echo "Cloning ${core_repo_url} into packages/import-export-core"
     git clone "${core_repo_url}" "${core_target}"
+fi
+
+if [ -n "${core_branch}" ]; then
+    if [ -n "$(git -C "${core_target}" status --porcelain --untracked-files=no)" ]; then
+        echo "packages/import-export-core has uncommitted changes, not switching to '${core_branch}'." >&2
+        exit 1
+    fi
+    git -C "${core_target}" fetch --quiet origin
+    # No pull: main of the core library may be ahead of what the extension
+    # supports. Update it deliberately with git pull in packages/import-export-core.
+    git -C "${core_target}" checkout --quiet "${core_branch}"
 fi
 
 echo "packages/t3import_export is on branch: $(git -C "${target}" rev-parse --abbrev-ref HEAD)"

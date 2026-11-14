@@ -1,0 +1,61 @@
+{
+    "name": "dwenzel/t3import-export-instance-v15",
+    "description": "TYPO3 15 (development version) instance for developing cpsit/t3import_export (extension branch: feature/116-typo3-v15)",
+    "license": "GPL-2.0-or-later",
+    "type": "project",
+    "require": {
+        "cpsit/import-export-core": "dev-feature/60-symfony-8-v0.1 as 0.1.x-dev",
+        "cpsit/t3import_export": "dev-feature/116-typo3-v15 as 5.0.x-dev",
+        "dwenzel/t3extension-tools": "dev-feature/22-typo3-v15 as 6.2.x-dev",
+        "typo3/cms-backend": "^15.0",
+        "typo3/cms-belog": "^15.0",
+        "typo3/cms-beuser": "^15.0",
+        "typo3/cms-core": "^15.0",
+        "typo3/cms-extbase": "^15.0",
+        "typo3/cms-filelist": "^15.0",
+        "typo3/cms-fluid": "^15.0",
+        "typo3/cms-fluid-styled-content": "^15.0",
+        "typo3/cms-frontend": "^15.0",
+        "typo3/cms-info": "^15.0",
+        "typo3/cms-install": "^15.0",
+        "typo3/cms-lowlevel": "^15.0",
+        "typo3/cms-scheduler": "^15.0",
+        "typo3/cms-tstemplate": "^15.0"
+    },
+    "repositories": {
+        "t3extension-tools": {
+            "type": "vcs",
+            "url": "https://github.com/dwenzel/t3extension_tools.git"
+        },
+        "packages": {
+            "type": "path",
+            "url": "../../packages/*",
+            "options": {
+                "symlink": true
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "typo3/class-alias-loader": true,
+            "typo3/cms-composer-installers": true
+        },
+        "sort-packages": true,
+        "platform": {
+            "php": "8.5"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "web-dir": "public"
+        }
+    },
+    "scripts": {
+        "bundle:setup": "../shared/bin/setup-instance 15"
+    },
+    "scripts-descriptions": {
+        "bundle:setup": "Create the database and install TYPO3 non-interactively"
+    }
+}
