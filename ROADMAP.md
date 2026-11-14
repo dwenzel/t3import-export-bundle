@@ -25,7 +25,8 @@ branches from 2016 to 2020.
 
 | TYPO3 | Extension branch    | Version line | Latest release | State |
 |-------|---------------------|--------------|----------------|-------|
-| 14    | `main` (later)      | 4.x          | none           | planned |
+| 15    | -                   | 5.x          | none           | work branch `feature/116-typo3-v15`, TYPO3 15 in development |
+| 14    | `main` (later)      | 4.x          | none           | planned, work branch `feature/24-typo3-v14` |
 | 13.4  | `main`              | 3.x          | 3.1.1          | maintained |
 | 12.4  | `support/typo3-v12` | 2.x          | 2.0.3          | bugfixes |
 | 11.5  | `support/typo3-v11` | 1.x          | 1.1.1          | bugfixes |
@@ -86,4 +87,19 @@ all versions) is on TER with 3.0.0 (TYPO3 11.5 - 12.4), 4.1.0 (TYPO3 12.4) and
 | open   | extension#71 | Adopt import-export-core 0.2 (breaking for custom components) |
 | open   | extension#75 | Remove TypoScript configuration and content rendering (deprecated in 3.1) |
 | open   | extension#24 | TYPO3 14 support on `main` (4.0.0); TYPO3 13 moves to `support/typo3-v13` |
-| open   | bundle#5     | TYPO3 14 instance |
+| done   | bundle#5     | TYPO3 14 instance (extension work branch `feature/24-typo3-v14`) |
+| open   | extension#117 | Backend modules hidden in TYPO3 14 (module access) |
+| open   | extension#118 | Remove `ext_tables.php` |
+| open   | extension#119 | Tests fail on TYPO3 14; `WriteFile`/`MoveFile` use removed `ResourceFactory` methods |
+
+## Phase 5: TYPO3 15 (extension 5.0)
+
+TYPO3 15 is in development. The bundle has an instance for it, so that
+incompatibilities show up early.
+
+| Status | Issue | Item |
+|--------|-------|------|
+| done   | bundle#19    | TYPO3 15 instance (15.0.x-dev, PHP 8.5) |
+| open   | extension#116 | TYPO3 15 support; dev dependencies (phpstan-typo3, testing-framework, typoscript-lint, typo3-console) not available for 15 yet |
+| open   | core#60      | Allow Symfony 8 |
+| open   | t3extension_tools#22 | TYPO3 15 support, typo3-console optional |
