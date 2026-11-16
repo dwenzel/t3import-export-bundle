@@ -35,10 +35,14 @@ list_versions() {
     local current
     current="$(current_version)"
     echo "Available TYPO3 versions (active: ${current}):"
-    grep -vE '^\s*(#|$)' "${versions_file}" | while read -r v php branch; do
+    grep -vE '^\s*(#|$)' "${versions_file}" | while read -r v php branch core_branch; do
         marker=" "
         [ "${v}" = "${current}" ] && marker="*"
-        printf ' %s %-3s PHP %-4s extension branch: %s\n' "${marker}" "${v}" "${php}" "${branch}"
+        printf ' %s %-3s PHP %-4s extension branch: %s' "${marker}" "${v}" "${php}" "${branch}"
+        if [ -n "${core_branch}" ] && [ "${core_branch}" != "-" ]; then
+            printf ', core library branch: %s' "${core_branch}"
+        fi
+        printf '\n'
     done
 }
 
@@ -53,7 +57,7 @@ if [ -z "${line}" ]; then
     list_versions >&2
     exit 1
 fi
-read -r _ php_version branch <<<"${line}"
+read -r _ php_version branch core_branch <<<"${line}"
 
 if [ ! -f "${DDEV_APPROOT}/instances/v${major}/composer.json" ]; then
     echo "instances/v${major}/composer.json is missing." >&2
@@ -63,7 +67,7 @@ fi
 # Check out the extension branch first: it refuses on uncommitted changes,
 # and nothing has been reconfigured at that point.
 if [ "${keep_branch}" -eq 0 ]; then
-    "${DDEV_APPROOT}/.ddev/commands/host/ext-checkout" "${branch}"
+    "${DDEV_APPROOT}/.ddev/commands/host/ext-checkout" "${branch}" "${core_branch:--}"
 fi
 
 cat > "${generated_file}" <<EOF
@@ -88,7 +92,10 @@ if [ "${run_setup}" -eq 1 ]; then
     # so it still holds the dependencies of the previous branch or PHP version.
     # Resolve them again for the active one.
     if [ -f "${DDEV_APPROOT}/packages/t3import_export/composer.json" ]; then
-        if ! "${DDEV_APPROOT}/.ddev/commands/host/ext" update --no-interaction --no-progress; then
+        # A second run is needed when composer plugins (e.g. typo3/class-alias-loader)
+        # change version during the update: the old plugin code fails after the swap.
+        if ! "${DDEV_APPROOT}/.ddev/commands/host/ext" update --no-interaction --no-progress \
+            && ! "${DDEV_APPROOT}/.ddev/commands/host/ext" update --no-interaction --no-progress; then
             echo "Updating the extension's dev dependencies failed; run 'ddev ext update' to retry." >&2
         fi
     fi

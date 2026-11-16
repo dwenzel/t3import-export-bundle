@@ -1,6 +1,6 @@
 {
     "name": "dwenzel/t3import-export-instance-v13",
-    "description": "TYPO3 13 instance for developing cpsit/t3import_export (extension branch: feature/v13compatible)",
+    "description": "TYPO3 13 instance for developing cpsit/t3import_export (extension branch: main)",
     "license": "GPL-2.0-or-later",
     "type": "project",
     "require": {
